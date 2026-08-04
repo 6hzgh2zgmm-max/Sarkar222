@@ -1,20 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="ur">
 <head>
-<title>Team Cards</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarkar222 - Member Card</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <style>
-body{background:#f2f2f2;font-family:sans-serif;text-align:center}
-.card{background:white;width:200px;display:inline-block;margin:10px;padding:10px;border-radius:10px;box-shadow:0 2px 5px gray}
-img{width:100%;border-radius:10px}
+body {font-family: Arial; text-align: center; background: #f2f2f2; padding: 20px;}
+.box {background: white; padding: 20px; border-radius: 15px; box-shadow: 0 0 10px #ccc; display: inline-block;}
+input {padding: 10px; width: 200px; border-radius: 8px; border: 1px solid #ccc;}
+button {padding: 10px 20px; border: none; background: #007bff; color: white; border-radius: 8px; cursor: pointer;}
+.card {margin-top: 20px; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 0 15px #aaa;}
+.card img {width: 200px; border-radius: 10px;}
+h2 {color: #007bff;}
 </style>
 </head>
 <body>
-<h1>Our Team</h1>
-<div class="card"><img src="ali.jpg"><p>Ali</p></div>
-<div class="card"><img src="zain.jpg"><p>Zain</p></div>
-<div class="card"><img src="azeem.jpg"><p>Azeem</p></div>
-<div class="card"><img src="zahoor.jpg"><p>Zahoor</p></div>
-<div class="card"><img src="malik.jpg"><p>Malik</p></div>
+
+<h1>Sarkar222 Team</h1>
+<div class="box">
+  <p>Member Code Likho: S001, S002...</p>
+  <input type="text" id="code" placeholder="S001">
+  <button onclick="searchMember()">Search</button>
+</div>
+
+<div id="result"></div>
+
+<script>
+const members = {
+  "S001": {name: "Ali Bhatti", photo: "S001.jpg"},
+  "S002": {name: "Zain", photo: "S002.jpg"},
+  "S003": {name: "Azeem", photo: "S003.jpg"},
+  "S004": {name: "Zahoor", photo: "S004.jpg"},
+  "S005": {name: "Faisal", photo: "S005.jpg"}
+};
+
+function searchMember(){
+  let code = document.getElementById("code").value.toUpperCase();
+  let member = members[code];
+  let resultDiv = document.getElementById("result");
+
+  if(member){
+    let link = window.location.origin + window.location.pathname + "?id=" + code;
+    resultDiv.innerHTML = `
+      <div class="card">
+        <h2>${member.name}</h2>
+        <p><b>Code:</b> ${code}</p>
+        <img src="${member.photo}">
+        <p><b>QR Code:</b></p>
+        <canvas id="qrcode"></canvas>
+      </div>
+    `;
+    QRCode.toCanvas(document.getElementById('qrcode'), link, {width: 150});
+  } else {
+    resultDiv.innerHTML = "<p style='color:red'>Code nahi mila!</p>";
+  }
+}
+</script>
+
 </body>
 </html>
-	◦	
